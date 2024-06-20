@@ -1,5 +1,6 @@
 <script setup>
 import Cabecalho from "./components/Cabecalho.vue";
+import Usuario from "./components/Usuario.vue";
 </script>
 
 <template>
@@ -10,7 +11,9 @@ import Cabecalho from "./components/Cabecalho.vue";
     <Cabecalho />
   </header>
 
-  <main></main>
+  <main>
+    <Usuario />
+  </main>
 </template>
 
 <style>
