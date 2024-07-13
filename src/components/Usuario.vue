@@ -1,43 +1,28 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
-// ref é uma função que cria uma variavel reativa
-const nome = ref("Adryanne");
-const dataNascimento = ref(1999);
-const idade = ref(22);
+const pessoa = ref({});
 
-// para acessar o valor de uma variavel reativa, é necessário usar o .value
-// console.log(idade.value);
+// onMounted é chamado depois do componente ser montado
+onMounted(async () => {
+  pessoa.value = await buscaInformacoes();
+});
 
-// para alterar o valor de uma variavel reativa, é necessário usar o .value
-// idade.value = 23;
-// console.log(idade.value);
+// Função que busca informações de uma api
+const buscaInformacoes = async () => {
+  const req = await fetch("https://reqres.in/api/users/5");
+  const json = await req.json();
+  return json.data;
+};
 
-// import { reactive } from "vue";
-
-// reactive é uma função que cria um objeto reativo
-// const pessoa = reactive({
-//   nome: "Adryanne",
-//   dataNascimento: 1999,
-//   idade: 22,
-// });
-
-// para acessar o valor de uma propriedade de um objeto reativo, não é necessário usar o .value
-// console.log(pessoa.idade);
 </script>
 
 <template>
-  <div>
-    <form action="" class="formulario">
-      <!-- a v-model se refere a variavel presente dentro da tag script -->
-      <label for="nome">Nome:</label>
-      <input type="text" id="nome" name="nome" v-model="nome" placeholder="Digite seu nome" />
-      <label for="dataNascimento">Data de Nascimento:</label>
-      <input type="number" id="dataNascimento" name="dataNascimento" v-model="dataNascimento" />
-    </form>
+  <div class="perfil">
+    <img v-bind:src="pessoa.avatar" alt="Perfil" />
+    <strong>{{ pessoa.first_name + pessoa.last_name }}</strong>
+    <span>{{ pessoa.email }}</span>
   </div>
-  <!-- para objetos utilizaria pessoa.nome -->
-  <p style="text-align: center">{{ nome }} nasceu em {{ dataNascimento }}</p>
 </template>
 
 <style scoped>
@@ -46,5 +31,37 @@ const idade = ref(22);
   padding: 5px;
   width: 200px;
   background-color: darkcyan;
+}
+
+.botao {
+  margin: 5px auto;
+  padding: 5px;
+  display: block;
+  background-color: darkcyan;
+  border-radius: 5px;
+  border-style: none;
+  cursor: pointer;
+}
+
+.botao:hover {
+  background-color: rgb(102, 147, 147);
+}
+
+.perfil {
+  width: 150px;
+  text-align: center;
+}
+
+.perfil img {
+  margin: 0 auto;
+  width: 80px;
+  display: block;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.perfil span {
+  display: block;
+  font-size: 0.8em;
 }
 </style>

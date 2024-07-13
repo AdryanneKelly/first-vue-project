@@ -5,8 +5,6 @@ import Usuario from "./components/Usuario.vue";
 
 <template>
   <NavBar />
-  <!-- Outra forma de declarar o componente -->
-  <!-- <component is="NavBar" /> -->
   <header>
     <Cabecalho />
   </header>
